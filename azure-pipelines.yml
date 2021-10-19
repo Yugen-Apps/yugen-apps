@@ -60,7 +60,7 @@ steps:
     appId: '$(appId)'
     flightName: '$(flightName)'
     packagePath: '**\*.msixupload'
-    force: false
-    skipPolling: false
+    force: true
+    skipPolling: true
     deletePackages: true
-    numberOfPackagesToKeep: 1
+    numberOfPackagesToKeep: '1'
