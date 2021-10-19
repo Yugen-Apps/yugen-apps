@@ -1,0 +1,40 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31729.503
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Yugen.Uwp", "Yugen.Uwp\Yugen.Uwp.csproj", "{A38D3A4D-7773-4037-BC86-AFD2E4ADA68C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Docs", "Docs", "{D1E10214-048A-481F-8068-6C68B8A25B01}"
+	ProjectSection(SolutionItems) = preProject
+		..\azure-pipelines.yml = ..\azure-pipelines.yml
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|ARM64 = Debug|ARM64
+		Debug|x64 = Debug|x64
+		Release|ARM64 = Release|ARM64
+		Release|x64 = Release|x64
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A38D3A4D-7773-4037-BC86-AFD2E4ADA68C}.Debug|ARM64.ActiveCfg = Debug|ARM64
+		{A38D3A4D-7773-4037-BC86-AFD2E4ADA68C}.Debug|ARM64.Build.0 = Debug|ARM64
+		{A38D3A4D-7773-4037-BC86-AFD2E4ADA68C}.Debug|ARM64.Deploy.0 = Debug|ARM64
+		{A38D3A4D-7773-4037-BC86-AFD2E4ADA68C}.Debug|x64.ActiveCfg = Debug|x64
+		{A38D3A4D-7773-4037-BC86-AFD2E4ADA68C}.Debug|x64.Build.0 = Debug|x64
+		{A38D3A4D-7773-4037-BC86-AFD2E4ADA68C}.Debug|x64.Deploy.0 = Debug|x64
+		{A38D3A4D-7773-4037-BC86-AFD2E4ADA68C}.Release|ARM64.ActiveCfg = Release|ARM64
+		{A38D3A4D-7773-4037-BC86-AFD2E4ADA68C}.Release|ARM64.Build.0 = Release|ARM64
+		{A38D3A4D-7773-4037-BC86-AFD2E4ADA68C}.Release|ARM64.Deploy.0 = Release|ARM64
+		{A38D3A4D-7773-4037-BC86-AFD2E4ADA68C}.Release|x64.ActiveCfg = Release|x64
+		{A38D3A4D-7773-4037-BC86-AFD2E4ADA68C}.Release|x64.Build.0 = Release|x64
+		{A38D3A4D-7773-4037-BC86-AFD2E4ADA68C}.Release|x64.Deploy.0 = Release|x64
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {4041059A-AFD5-4163-8304-0E78959F869E}
+	EndGlobalSection
+EndGlobal
