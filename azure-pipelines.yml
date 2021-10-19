@@ -7,7 +7,7 @@ pool:
 
 variables:
   solution: '**/*.sln'
-  buildPlatform: 'x64|ARM64'
+  buildPlatform: 'x64'
   buildConfiguration: 'Release'
   appxPackageDir: '$(build.artifactStagingDirectory)\AppxPackages\\'
   appxmanifest: '**/*.appxmanifest'
@@ -18,49 +18,71 @@ variables:
   
 name: $(GITVERSION_AssemblySemFileVer)
 
-steps:
+stages:
+- stage: 'Build'
+  jobs:  
 
-- task: gitversion/setup@0
-  inputs:
-    versionSpec: '5.x'
+  - job: 'Build_QA'
+    steps:
 
-- task: gitversion/execute@0
+    - task: gitversion/setup@0
+      inputs:
+        versionSpec: '5.x'
 
-- task: NuGetToolInstaller@1
+    - task: gitversion/execute@0
 
-- task: NuGetCommand@2
-  inputs:
-    restoreSolution: '$(solution)'
+    - task: NuGetToolInstaller@1
 
-- task: VersionAPPX@2
-  inputs:
-    VersionNumber: '$(GitVersion.AssemblySemFileVer)'
+    - task: NuGetCommand@2
+      inputs:
+        restoreSolution: '$(solution)'
 
-- task: VSBuild@1
-  inputs:
-    platform: 'x64'
-    solution: '$(solution)'
-    configuration: '$(buildConfiguration)'
-    msbuildArgs: '/p:AppxBundlePlatforms="$(buildPlatform)" 
-                  /p:AppxPackageDir="$(appxPackageDir)" 
-                  /p:AppxBundle=Always 
-                  /p:UapAppxPackageBuildMode=StoreUpload 
-                  /p:AppxPackageSigningEnabled=false'
-    msbuildArchitecture: 'x64'
-    maximumCpuCount: true
+    - task: VersionAPPX@2
+      inputs:
+        VersionNumber: '$(GitVersion.AssemblySemFileVer)'
 
-- task: PublishBuildArtifacts@1
-  inputs:
-    PathtoPublish: '$(Build.ArtifactStagingDirectory)\AppxPackages'
-    ArtifactName: '$(artifactName)'
+    - task: VSBuild@1
+      inputs:
+        platform: 'x64'
+        solution: '$(solution)'
+        configuration: '$(buildConfiguration)'
+        msbuildArgs: '/p:AppxBundlePlatforms="$(buildPlatform)" 
+                      /p:AppxPackageDir="$(appxPackageDir)" 
+                      /p:AppxBundle=Always 
+                      /p:UapAppxPackageBuildMode=StoreUpload 
+                      /p:AppxPackageSigningEnabled=false'
+        msbuildArchitecture: 'x64'
+        maximumCpuCount: true
 
-- task: store-flight@0
-  inputs:
-    serviceEndpoint: 'Store'
-    appId: '$(appId)'
-    flightName: '$(flightName)'
-    packagePath: '**\*.msixupload'
-    force: true
-    skipPolling: true
-    deletePackages: true
-    numberOfPackagesToKeep: '1'
+    - task: PublishPipelineArtifact@1
+      inputs:
+        targetPath: '$(Build.ArtifactStagingDirectory)\AppxPackages'
+        artifactName: '$(artifactName)'
+
+- stage: 'PROD'
+  jobs:
+  - deployment: 'Deploy_PROD'
+    environment: 'PROD'
+    strategy:
+      runOnce:
+        deploy:
+          steps:          
+          - task: CmdLine@2
+            inputs:
+              script: |
+                echo Write your commands here
+                
+                dir $(Pipeline.Workspace)
+                
+                dir $(Pipeline.Workspace)\$(artifactName)
+
+          - task: store-flight@0
+            inputs:
+              serviceEndpoint: 'Store'
+              appId: '$(appId)'
+              flightName: '$(flightName)'
+              packagePath: '$(Pipeline.Workspace)\$(artifactName)\*.msixupload'
+              force: true
+              skipPolling: true
+              deletePackages: true
+              numberOfPackagesToKeep: '1'
