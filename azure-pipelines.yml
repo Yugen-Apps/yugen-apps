@@ -70,30 +70,28 @@ stages:
           - task: CmdLine@2
             inputs:
               script: |
-                echo Write your commands here
-                
-                dir $(Pipeline.Workspace)
-                
+                echo Write your commands here                
+                dir $(Pipeline.Workspace)                
                 dir $(Pipeline.Workspace)\$(artifactName)
 
-          - task: codesigning@2
-            displayName: 'Code Signing'
-            inputs:
-              secureFileId: 'YugenApps.pfx'
-              signCertPassword: '$(PfxPassword)'
-              files: '$(Pipeline.Workspace)\$(artifactName)\**\*.msixbundle'
-              timeServer: 'http://timestamp.digicert.com'
-              hashingAlgorithm: 'SHA256'
-              signToolLocationMethod: 'location'
-              signToolLocation: 'C:\Program Files (x86)\Windows Kits\10\bin\10.0.19041.0\x64\signtool.exe'
-
-          # - task: store-flight@0
+          # - task: codesigning@2
+          #   displayName: 'Code Signing'
           #   inputs:
-          #     serviceEndpoint: 'Store'
-          #     appId: '$(appId)'
-          #     flightName: '$(flightName)'
-          #     packagePath: '$(Pipeline.Workspace)\$(artifactName)\*.msixupload'
-          #     force: true
-          #     skipPolling: true
-          #     deletePackages: true
-          #     numberOfPackagesToKeep: '1'
+          #     secureFileId: 'YugenApps.pfx'
+          #     signCertPassword: '$(PfxPassword)'
+          #     files: '$(Pipeline.Workspace)\$(artifactName)\**\*.msixbundle'
+          #     timeServer: 'http://timestamp.digicert.com'
+          #     hashingAlgorithm: 'SHA256'
+          #     signToolLocationMethod: 'location'
+          #     signToolLocation: 'C:\Program Files (x86)\Windows Kits\10\bin\10.0.19041.0\x64\signtool.exe'
+
+          - task: store-flight@0
+            inputs:
+              serviceEndpoint: 'Store'
+              appId: '$(appId)'
+              flightName: '$(flightName)'
+              packagePath: '$(Pipeline.Workspace)\$(artifactName)\*.msixupload'
+              force: true
+              skipPolling: true
+              deletePackages: true
+              numberOfPackagesToKeep: '1'
