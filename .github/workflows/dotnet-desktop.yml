@@ -23,18 +23,18 @@ jobs:
       
     steps:
     - name: Checkout
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
       with:
         fetch-depth: 0
 
     - name: Install GitVersion
-      uses: gittools/actions/gitversion/setup@v0
+      uses: gittools/actions/gitversion/setup@v3
       with:
         versionSpec: '5.x'
 
     - name: Determine Version
       id:   gitversion
-      uses: gittools/actions/gitversion/execute@v0
+      uses: gittools/actions/gitversion/execute@v3
       
     - name: Update manifest version
       run: |
@@ -43,7 +43,7 @@ jobs:
         $manifest.save(".\${{ env.Project_Name }}\Package.appxmanifest")        
 
     - name: Set up dependency caching for faster builds
-      uses: actions/cache@v3
+      uses: actions/cache@v4
       with:
         path: ~/.nuget/packages
         key: ${{ runner.os }}-nuget-${{ hashFiles('**/packages.lock.json') }}
@@ -51,7 +51,7 @@ jobs:
           ${{ runner.os }}-nuget-
 
     - name: Setup NuGet
-      uses: nuget/setup-nuget@v1
+      uses: nuget/setup-nuget@v2
       with:
         nuget-api-key: ${{ secrets.NUGET_KEY }}
 
@@ -59,7 +59,7 @@ jobs:
       run: nuget restore ${{ env.Solution_Name }}
             
     - name: Setup MSBuild.exe
-      uses: microsoft/setup-msbuild@v1    
+      uses: microsoft/setup-msbuild@v2
       with:
         msbuild-architecture: x64
 
@@ -79,7 +79,7 @@ jobs:
         Appx_Package_Build_Mode: StoreUpload    
 
     - name: Upload msixupload
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: msixupload
         path: ${{ env.appxPackageDir }}\**\*.msixupload
@@ -94,7 +94,7 @@ jobs:
       MajorMinorPatch: ${{needs.build.outputs.MajorMinorPatch}}
 
     steps:
-    - uses: actions/download-artifact@v3
+    - uses: actions/download-artifact@v4
       with:
         name: msixupload
         path: ${{ env.ARTIFACT_DIRECTORY }}
@@ -108,7 +108,7 @@ jobs:
         app-id: ${{ env.STORE_APP_ID }}
         package-path: "${{ env.ARTIFACT_DIRECTORY }}"
 
-    - uses: softprops/action-gh-release@v1
+    - uses: softprops/action-gh-release@v2
       name: Release        
       with:
         tag_name: ${{env.MajorMinorPatch}}
