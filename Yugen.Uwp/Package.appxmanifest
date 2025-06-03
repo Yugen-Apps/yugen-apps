@@ -9,7 +9,7 @@
   <Identity
     Name="30978emiliano84.ChannelMetro"
     Publisher="CN=0259C6DD-5945-485D-962F-C84F7531D6C4"
-    Version="2.0.11.0" />
+    Version="1.0.0.0" />
 
   <mp:PhoneIdentity PhoneProductId="390d611b-aac1-4910-8bb8-512cf8f5e19d" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
