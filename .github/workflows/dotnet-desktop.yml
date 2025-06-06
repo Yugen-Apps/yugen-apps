@@ -9,12 +9,14 @@ on:
 jobs:
   build:
     uses: "./.github/workflows/build.yml"
+    secrets: inherit
     with:
       solution_name: "Yugen.App.sln"
       project_name: "Yugen.Uwp"
 
   deploy:
     uses: "./.github/workflows/deploy.yml"
+    secrets: inherit
     needs: [build]
     with:
       store_app_id: 9NBLGGH10ZKJ
@@ -22,6 +24,7 @@ jobs:
 
   deploy_new:
     uses: "./.github/workflows/deploy-new.yml"
+    secrets: inherit
     needs: [build]
     with:
       store_app_id: 9NBLGGH10ZKJ
@@ -29,6 +32,7 @@ jobs:
 
   deploy_new2:
     uses: "./.github/workflows/deploy-new2.yml"
+    secrets: inherit
     needs: [build]
     with:
       store_app_id: 9NBLGGH10ZKJ
