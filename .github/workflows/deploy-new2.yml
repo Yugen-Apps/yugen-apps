@@ -11,7 +11,7 @@ on:
 jobs:
   deploy_new:
     runs-on: ubuntu-latest
-    environment: PROD_NEW
+    environment: PROD_NEW2
 
     env:
       ARTIFACT_DIRECTORY: artifact
@@ -57,7 +57,7 @@ jobs:
           client-id: ${{ secrets.AZURE_AD_APPLICATION_CLIENT_ID }}
           client-secret: ${{ secrets.AZURE_AD_APPLICATION_SECRET }}
       
-      # https://github.com/jirimaier/DataPlotter/blob/main/.github/workflows/deploy-microsoft-store.yml
+      # https://github.com/microsoft/PowerToys/blob/main/.github/workflows/msstore-submissions.yml
       - name: Update Draft Submission
         uses: microsoft/store-submission@v1
         with:
@@ -66,7 +66,7 @@ jobs:
             {
               "packages": [
                 {
-                  "filePath": "${{ env.msix_path }}",
+                  "packageUrl": "${{ env.msix_path }}",
                   "languages": ["en"],
                   "architectures": ${{ env.STORE_ARCHITECTURES }},
                   "isSilentInstall": true

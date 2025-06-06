@@ -26,3 +26,10 @@ jobs:
     with:
       store_app_id: 9NBLGGH10ZKJ
       major_minor_patch: ${{needs.build.outputs.major_minor_patch}}
+
+  deploy_new2:
+    uses: "./.github/workflows/deploy-new2.yml"
+    needs: [build]
+    with:
+      store_app_id: 9NBLGGH10ZKJ
+      major_minor_patch: ${{needs.build.outputs.major_minor_patch}}
