@@ -16,8 +16,7 @@ jobs:
     env:
       ARTIFACT_DIRECTORY: artifact
       STORE_ARCHITECTURES: >-
-        ["X64"]
-      # ["X64", "ARM64"]
+        ["X64", "ARM64"]
 
     steps:
       - name: debug_version

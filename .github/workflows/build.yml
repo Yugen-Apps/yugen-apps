@@ -20,8 +20,7 @@ jobs:
 
     env:
       appx_bundle: Always
-      appx_bundle_platforms: "x64"
-      # appx_bundle_platforms: "x64|ARM64"
+      appx_bundle_platforms: "x64|ARM64"
       appx_package_build_mode: StoreUpload
       appx_package_dir: '${{ github.workspace }}\AppxPackages'
       appx_manifest: "Package.appxmanifest"
