@@ -43,7 +43,7 @@ jobs:
       - name: Debug MSIX file path
         continue-on-error: true
         run: |
-          Write-Host "${{ steps.artifact.outputs.download-path}}"
+          echo "${{ steps.artifact.outputs.download-path}}"
 
       - name: Configure Store Credentials
         uses: microsoft/store-submission@v1
@@ -61,7 +61,7 @@ jobs:
         uses: microsoft/store-submission@v1
         with:
           command: update
-          product-update: >
+          product-update: |-
             {
               "packages": [
                 {
